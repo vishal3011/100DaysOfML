@@ -3,6 +3,9 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import matplotlib.animation as animation
 
+df  = pd.read_csv("data.csv")
+plt.scatter(df['x'], df['y'])
+
 # y = mx + b
 # m is slope, b is y-intercept
 def compute_error_for_line_given_points(b, m, points):
@@ -37,7 +40,7 @@ def gradient_descent_runner(points, starting_b, starting_m, learning_rate, num_i
 
 def run():
     points = genfromtxt("data.csv", delimiter=",", skip_header = 1)
-    learning_rate = 0.0001
+    learning_rate = 0.004
     initial_b = 0 # initial y-intercept guess
     initial_m = 0 # initial slope guess
     num_iterations = 1000
@@ -45,13 +48,9 @@ def run():
     print "Running..."
     [b, m] = gradient_descent_runner(points, initial_b, initial_m, learning_rate, num_iterations)
     print "After {0} iterations b = {1}, m = {2}, error = {3}".format(num_iterations, b, m, compute_error_for_line_given_points(b, m, points))
-    df  = pd.read_csv("data.csv")
-    plt.scatter(df['x'], df['y'])
 
     plt.plot(df['x'], df['x']*m + b)
     plt.show()
-
-
 
 if __name__ == '__main__':
     run()
